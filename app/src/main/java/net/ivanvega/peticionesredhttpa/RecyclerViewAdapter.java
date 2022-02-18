@@ -69,7 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         img.setImageBitmap(response);
                     }
 
-                },100,100,
+                },80,80,
                 ImageView.ScaleType.CENTER,
                 Bitmap.Config.ALPHA_8,
                 error -> {

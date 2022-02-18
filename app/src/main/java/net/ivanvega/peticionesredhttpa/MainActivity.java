@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView miImg;
     RecyclerView recyclerView;
     ArrayList<Heroe> listaAlbum;
+    FloatingActionButton btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listaAlbum = new ArrayList<>();
         recyclerView = findViewById(R.id.RecyclerView);
+        btn = findViewById(R.id.btnRequest);
         //miImg = findViewById(R.id.imgVoll);
         /*findViewById(R.id.btnStringReq).setOnClickListener(v->stringRequest());
         findViewById(R.id.btnJsonReq).setOnClickListener(v->jsonRequest());
@@ -53,9 +57,16 @@ public class MainActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
         stringRequest();
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(), listaAlbum);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(), listaAlbum);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            }
+        });
 
     }
 
