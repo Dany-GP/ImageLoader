@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Vuelve a cargar el recyclerView
                 RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(), listaAlbum);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    //Realiza la solcitiud a la web
     private void stringRequest() {
         // Instantiate the RequestQueue.
 
@@ -84,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         ArrayList<Heroe> lista = new ArrayList<>();
                         try {
-                            JSONObject obj = new JSONObject(response);
+                            JSONObject obj = new JSONObject(response);                      //Recibe el contenido de la pagina en un JSONObject
                             Log.d("JSONOBJECT", obj.getString("heroes"));
-                            JSONArray obj2 = new JSONArray(obj.getString("heroes"));
+                            JSONArray obj2 = new JSONArray(obj.getString("heroes"));  //Convierte el JSONObject en un JSONArray
                             Log.d("objeto", obj2.toString());
-                            for (int i=0; i<obj2.length();i++) {
+                            for (int i=0; i<obj2.length();i++) {                            //Itera el contenido del Array
                                 JSONObject e = obj2.getJSONObject(i);
                                 Heroe heroe = new Heroe();
                                 heroe.setName( e.getString("name"));
@@ -98,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
                                         e.getString("imageurl") );
                             }
                             listaAlbum = lista;
+
+                            // Si la peticion se realiza con exito cargamos el contenido de nuestra lista en el recyclerView
+                            RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(), listaAlbum);
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
